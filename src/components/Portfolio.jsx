@@ -33,5 +33,3 @@ export function Portfolio({ portfolioName, earnings }) {
         </article>
     );
 }
-
-export default Portfolio;
