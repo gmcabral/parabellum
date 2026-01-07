@@ -1,16 +1,14 @@
 import { useState, useEffect } from 'react';
 import { Portfolio } from './components/Portfolio';
-
-const URL_BONOS_ARG = 'https://data912.com/live/arg_bonds';
+import { fetchBonosArg } from './services/fetchBonos';
 
 export function App() {
 
     const [bonosList, setBonosList] = useState([]);
 
-    useEffect(() => {
-        fetch(URL_BONOS_ARG)
-            .then(response => { console.log(response); return response.json(); })
-            .then(data => { console.log(data); return setBonosList(data) })
+    useEffect( async () => {
+        const bonos = await fetchBonosArg();
+        setBonosList(bonos)
     }, [])
 
 
