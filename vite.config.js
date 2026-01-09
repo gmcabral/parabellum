@@ -10,4 +10,13 @@ export default defineConfig({
       },
     }),
   ],
+  server: {
+    proxy: {
+      '/api-iol': {
+        target: 'https://api.invertironline.com',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api-iol/, '')
+      }
+    }
+  }
 })

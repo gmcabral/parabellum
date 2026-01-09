@@ -1,4 +1,4 @@
-import './Portfolio.css'
+import './portfolio.css'
 import { useState } from 'react';
 
 export function Portfolio({ portfolioName, earnings }) {
@@ -24,7 +24,7 @@ export function Portfolio({ portfolioName, earnings }) {
             </header>
 
             <aside>
-                <button 
+                <button
                     className={buttonClassName}
                     onClick={handleClick}>
                     {buttonText}

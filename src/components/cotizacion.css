@@ -1,0 +1,18 @@
+.activos {
+    display: grid;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 10px;
+    padding: 10px;
+}
+
+.activo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #94a3c0;
+    border-radius: 10px;
+    padding: 5px;
+}

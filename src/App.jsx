@@ -1,31 +1,23 @@
-import { useState, useEffect } from 'react';
-import { Portfolio } from './components/Portfolio';
-import { fetchBonosArg } from './services/fetchBonos';
+import { Cotizacion } from './components/Cotizacion';
+import { Routes, Route } from 'react-router-dom'
+import HomePage from './pages/HomePage.jsx'
+import LoginPage from './pages/LoginPage.jsx'
+import Search from './pages/Search.jsx'
+import Profile from './pages/Profile.jsx';
+import MainLayout from './layouts/MainLayout.jsx';
 
 export function App() {
 
-    const [bonosList, setBonosList] = useState([]);
-
-    useEffect( async () => {
-        const bonos = await fetchBonosArg();
-        setBonosList(bonos)
-    }, [])
-
-
     return (
-        <>
-            <div>{bonosList.map(bono =>
-                <>
-                    <p key={bono.symbol}>{bono.symbol}</p>
-                    <p>{bono.px_bid}</p>
-                    <p>{bono.px_ask}</p>
-                </>)}
-            </div>
-            <Portfolio portfolioName="Portfolio Acciones" earnings={1000000} />
-            <Portfolio portfolioName="Portfolio Bonos" earnings={2340} />
-            <Portfolio />
-        </>
-
+        <Routes>
+            <Route element={<MainLayout />}>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/profile/:id" element={<Profile />} />
+                <Route path="*" element={<h1>404</h1>} />
+                <Route path="/search" element={<Search />} />
+            </Route>
+        </Routes>
     )
 }
 
