@@ -1,0 +1,32 @@
+.portfolio-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #fff;
+    border: 2px solid #444;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 10px 0;
+}
+
+.portfolio-card header p span {
+    font-size: 0.7rem;
+}
+
+.portfolio-card aside button {
+    margin-left: 20px;
+}
+
+.pf-button {
+    background-color: #0a7243;
+    color: #fff;
+    border: 1px solid #555;
+    border-radius: 2px;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.pf-button.is-pesos {
+    background-color: #222;
+}

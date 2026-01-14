@@ -1,0 +1,25 @@
+header {
+    height: auto;
+    width: 100%;
+}
+
+body {
+    margin: 0;
+    background: #222;
+    font-family: system-ui;
+    display: flex;
+    height: 100vh;
+    width: 100%;
+}
+
+body>div {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+main {
+    width: 100%;
+}
