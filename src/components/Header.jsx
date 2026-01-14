@@ -22,7 +22,7 @@ export function Header() {
         <header>
             <nav className='mainNavBar'>
                 <Link to="/" className='menuItem'>Home</Link>
-                <Link to="/cotizacion" className='menuItem'>Cotizaciones</Link>
+                <Link to="/cotizaciones" className='menuItem'>Cotizaciones</Link>
                 {showLogin()}
             </nav>
         </header>
