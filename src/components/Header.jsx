@@ -1,7 +1,7 @@
 import { AuthContext } from '../context/AuthContext.js'
 import { useState, useContext } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import LoginPage from '../pages/LoginPage.jsx'
+import Login from './Login.jsx'
 
 export function Header() {
     const { token, logout } = useContext(AuthContext)
@@ -20,6 +20,7 @@ export function Header() {
         <header>
             <nav className='mainNavBar'>
                 <Link to="/" className='menuItem'>Home</Link>
+                <Link to="/calculadora" className='menuItem'>Calculadora</Link>
                 <Link to="/cotizaciones" className='menuItem'>Cotizaciones</Link>
 
                 <button
@@ -30,7 +31,7 @@ export function Header() {
                 </button>
 
                 {!token && isLoginOpen && (
-                    <LoginPage
+                    <Login
                         onClose={() => setIsLoginOpen(false)}
                         from={location.pathname}
                     />

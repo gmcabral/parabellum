@@ -1,9 +1,9 @@
 import { Link, useNavigate } from 'react-router-dom'
-import './loginPage.css'
+import './login.css'
 import { useState, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext.js';
 
-export default function LoginPage({ onClose, from }) {
+export default function Login({ onClose, from }) {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [loading, setLoading] = useState(false);
