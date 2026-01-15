@@ -1,29 +1,40 @@
 import { AuthContext } from '../context/AuthContext.js'
-import { useContext } from 'react'
-import { Link } from 'react-router-dom'
+import { useState, useContext } from 'react'
+import { Link, useLocation } from 'react-router-dom'
+import LoginPage from '../pages/LoginPage.jsx'
 
 export function Header() {
-    const { token, setToken } = useContext(AuthContext)
+    const { token, logout } = useContext(AuthContext)
+    const [isLoginOpen, setIsLoginOpen] = useState(false);
+    const location = useLocation();
 
-    const handleLogout = () => {
-        setToken(null)
-        console.log({ token })
-    }
-
-    const showLogin = () => {
-        if (token == undefined) {
-            return <Link to="/login" className='menuRightItem'>Login</Link>
+    const handleAuthClick = () => {
+        if (token) {
+            logout();
+        } else {
+            setIsLoginOpen(true);
         }
-        return <button onClick={handleLogout} className='menuRightItem'>Logout</button>
-
-    }
+    };
 
     return (
         <header>
             <nav className='mainNavBar'>
                 <Link to="/" className='menuItem'>Home</Link>
                 <Link to="/cotizaciones" className='menuItem'>Cotizaciones</Link>
-                {showLogin()}
+
+                <button
+                    className="menuRightItem"
+                    onClick={handleAuthClick}
+                >
+                    {token ? 'Logout' : 'Login'}
+                </button>
+
+                {!token && isLoginOpen && (
+                    <LoginPage
+                        onClose={() => setIsLoginOpen(false)}
+                        from={location.pathname}
+                    />
+                )}
             </nav>
         </header>
     )

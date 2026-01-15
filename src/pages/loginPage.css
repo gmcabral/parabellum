@@ -1,30 +1,80 @@
-section {
+/* Fondo difuminado */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
     align-items: center;
+    justify-content: center;
+
+    z-index: 1000;
 }
 
-form {
+/* Caja del modal */
+.modal {
+    background: #ffffff;
+    padding: 2rem;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 400px;
+
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+    animation: modalFadeIn 0.25s ease-out;
+}
+
+/* Formulario */
+.modal form {
     display: flex;
     flex-direction: column;
-    border: 3px solid #aaa;
-    border-radius: 20px;
-    padding: 30px;
+    gap: 1rem;
 }
 
-label {
-    font-weight: bold;
-    margin-bottom: 5px;
-    color: #aaa;
+/* Inputs */
+.modal input {
+    padding: 0.6rem 0.75rem;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
 }
 
-input {
-    font-family: system-ui;
-    margin-bottom: 20px;
+/* Botón */
+.modal button {
+    margin-top: 1rem;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 6px;
+    background-color: #2563eb;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
 }
 
-.loginButton {
-    margin-top: 10px;
-    width: fit-content;
+.modal button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Link */
+.modal a {
+    display: block;
+    margin-top: 1rem;
+    text-align: center;
+    color: #2563eb;
+    text-decoration: none;
+}
+
+/* Animación */
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.96);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
 }

@@ -1,7 +1,7 @@
+import { mapTokenDtoToToken } from '../mappers/token.js';
+
 export const obtenerTokenIOL = async ({ username, password }) => {
     const url = '/api-iol/token';
-
-    // Preparamos los datos en el formato que pide el header x-www-form-urlencoded
     const detalles = new URLSearchParams();
     detalles.append('username', username);
     detalles.append('password', password);
@@ -16,18 +16,47 @@ export const obtenerTokenIOL = async ({ username, password }) => {
             body: detalles
         });
 
-        if (!response.ok) {
-            // IOL suele devolver errores 400 si las credenciales son incorrectas
-            const errorData = await response.json();
-            console.error('Error de IOL:', errorData);
-            return;
+        const data = await response.json();
+
+        if (response.ok) {
+            return mapTokenDtoToToken(data);
+        } else {
+            console.error('Error:', data);
+            return null;
         }
+    } catch (error) {
+        console.error('Error de red:', error);
+        return null;
+    }
+};
+
+export async function refreshTokenIOL({ token }) {
+    const url = '/api-iol/token';
+    const detalles = new URLSearchParams();
+    detalles.append('refresh_token', token.refreshToken);
+    detalles.append('grant_type', 'refresh_token');
+
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: detalles
+        });
 
         const data = await response.json();
-        console.log('Token obtenido con éxito:', data.access_token);
-        return data;
 
+        if (response.ok) {
+            console.log('Token refrescado con exito')
+            return mapTokenDtoToToken(data);
+        } else {
+            console.error('Error:', data);
+            return null;
+        }
     } catch (error) {
-        console.error('Error de red o servidor:', error);
+        console.error('Error de red:', error);
+        return null;
+
     }
 };
