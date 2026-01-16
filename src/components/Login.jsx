@@ -51,13 +51,13 @@ export default function Login({ onClose, from }) {
                         value={password}
                         onChange={onChangePassword}
                     />
-
-                    <button onClick={handleLogin} disabled={loading}>
-                        {loading ? 'Cargando...' : 'Login'}
-                    </button>
+                    <div className='botonera'>
+                        <button onClick={handleLogin} disabled={loading}>
+                            {loading ? 'Cargando...' : 'Login'}
+                        </button>
+                        <button onClick={onClose}>Cancel</button>
+                    </div>
                 </form>
-
-                <Link to="/">Home</Link>
             </div>
         </section>
 
