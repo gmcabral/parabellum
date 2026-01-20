@@ -5,6 +5,7 @@ import Profile from './pages/Profile.jsx';
 import MainLayout from './layouts/MainLayout.jsx';
 import CotizacionesPage from './pages/CotizacionesPage.jsx';
 import CalculadoraPage from './pages/CalculadoraPage.jsx';
+import ScreenerPage from './pages/ScreenerPage.jsx';
 
 export function App() {
 
@@ -12,6 +13,7 @@ export function App() {
         <Routes>
             <Route element={<MainLayout />}>
                 <Route path="/" element={<HomePage />} />
+                <Route path="/screener" element={<ScreenerPage />} />
                 <Route path="/calculadora" element={<CalculadoraPage />} />
                 <Route path="/cotizaciones" element={<CotizacionesPage />} />
                 <Route path="/profile/:id" element={<Profile />} />

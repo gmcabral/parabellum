@@ -5,7 +5,7 @@
 //   "ticker": "AAPL"
 // }
 export async function calcularRiesgo(payload) {
-    const response = await fetch('http://127.0.0.1:8000/calculadora', {
+    const response = await fetch('https://api.amala.com.ar/calculadora/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -15,6 +15,20 @@ export async function calcularRiesgo(payload) {
 
     if (!response.ok) {
         throw new Error('Error al calcular');
+    }
+
+    return response.json();
+}
+
+export async function getScreenerData() {
+    const response = await fetch('https://api.amala.com.ar/screener/', {
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    });
+
+    if (!response.ok) {
+        throw new Error('Error al obtener los datos');
     }
 
     return response.json();
