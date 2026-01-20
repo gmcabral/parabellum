@@ -18,14 +18,14 @@ export function Header() {
 
     return (
         <header>
-            <nav className='mainNavBar'>
-                <Link to="/" className='menuItem'>Home</Link>
-                <Link to="/screener" className='menuItem'>Screener</Link>
-                <Link to="/calculadora" className='menuItem'>Calculadora</Link>
-                <Link to="/cotizaciones" className='menuItem'>Cotizaciones</Link>
+            <nav className='flex bg-sky-900 rounded-lg m-4 items-center gap-4 p-4'>
+                <Link to="/" className='text-xl font-bold mb-1'>Home</Link>
+                <Link to="/screener" className='text-xl font-bold mb-1'>Screener</Link>
+                <Link to="/calculadora" className='text-xl font-bold mb-1'>Calculadora</Link>
+                <Link to="/cotizaciones" className='text-xl font-bold mb-1'>Cotizaciones</Link>
 
                 <button
-                    className="menuRightItem"
+                    className="ml-auto text-xl font-bold mb-1"
                     onClick={handleAuthClick}
                 >
                     {token ? 'Logout' : 'Login'}

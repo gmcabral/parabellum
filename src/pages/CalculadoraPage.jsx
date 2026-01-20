@@ -28,7 +28,7 @@ export default function Calculadora() {
     return (
         <>
             <section>
-                <h1>Calculadora</h1>
+                <h1 className="text-3xl font-bold text-blue-500">Calculadora</h1>
 
                 <form onSubmit={handleSubmit}>
                     <label htmlFor="capitalTotal">Capital total</label>
