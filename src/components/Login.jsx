@@ -32,30 +32,73 @@ export default function Login({ onClose, from }) {
     };
 
     return (
-        <section className="modal-overlay">
-            <div className="modal">
-                <form>
-                    <label htmlFor="username">User</label>
+        <section
+            className="
+                fixed inset-0 z-1000
+                flex items-center justify-center
+                bg-black/40
+                backdrop-blur-[6px]"
+        >
+            <div
+                className="
+                    w-full max-w-80
+                    rounded-xl
+                    bg-[#555]
+                    p-8
+                    shadow-[0_20px_40px_rgba(0,0,0,0.25)]
+                    animate-modalFadeIn"
+            >
+                <form className="flex flex-col gap-4">
+                    <label htmlFor="username" className='font-bold text-gray-300'>User</label>
                     <input
                         id="username"
                         placeholder="admin"
                         value={username}
                         onChange={onChangeUsername}
+                        className="
+                            rounded-md
+                            border border-gray-300
+                            px-3 py-2.5
+                            text-base"
                     />
 
-                    <label htmlFor="password">Password</label>
+                    <label htmlFor="password" className='font-bold text-gray-300'>Password</label>
                     <input
                         id="password"
                         type="password"
                         placeholder="password"
                         value={password}
                         onChange={onChangePassword}
+                        className="
+                            rounded-md
+                            border border-gray-300
+                            px-3 py-2.5
+                            text-base"
                     />
-                    <div className='botonera'>
-                        <button onClick={handleLogin} disabled={loading}>
+                    <div className="mt-4 flex items-center justify-between gap-2">
+                        <button
+                            onClick={handleLogin}
+                            disabled={loading}
+                            className="
+                                rounded-md
+                                bg-blue-600
+                                px-4 py-3
+                                text-white
+                                text-base
+                                disabled:cursor-not-allowed
+                                disabled:opacity-60"
+                        >
                             {loading ? 'Cargando...' : 'Login'}
                         </button>
-                        <button onClick={onClose}>Cancel</button>
+                        <button
+                            onClick={onClose}
+                            className="
+                                rounded-md
+                                border border-gray-400
+                                px-4 py-3 text-blue-200
+                                text-base bg-blue-900"
+                        >Cancel
+                        </button>
                     </div>
                 </form>
             </div>
