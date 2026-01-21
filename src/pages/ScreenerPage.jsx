@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react"
-import { getScreenerData } from "../services/ParabellumServices.js"
-import { ScreenerTicker } from "../components/ScreenerTicker.jsx"
-import { ScreenerTickerInfo } from "../components/ScreenerTicketInfo.jsx"
+import { useState, useEffect } from 'react'
+import { getScreenerData } from '../services/ParabellumServices.js'
+import { ScreenerTicker } from '../components/ScreenerTicker.jsx'
+import { ScreenerTickerInfo } from '../components/ScreenerTicketInfo.jsx'
+import { ScreenerHeader } from '../components/ScreenerHeader'
 
 export default function ScreenerPage() {
     const [loading, setLoading] = useState(true)
@@ -9,20 +10,34 @@ export default function ScreenerPage() {
     const [selectedTicker, setSelectedTicker] = useState(null)
 
     useEffect(() => {
+        const controller = new AbortController();
+
         const loadScreener = async () => {
             try {
-                const screenerData = await getScreenerData()
-                setScreener(screenerData)
+                setLoading(true);
+
+                const screenerData = await getScreenerData({
+                    signal: controller.signal,
+                });
+
+                setScreener(screenerData);
+            } catch (error) {
+                if (error.name !== "AbortError") {
+                    console.error("Error al cargar datos de Screener:", error);
+                }
+            } finally {
+                if (!controller.signal.aborted) {
+                    setLoading(false);
+                }
             }
-            catch (error) {
-                console.error("Error al cargar datos de Screener: ", error)
-            }
-            finally {
-                setLoading(false)
-            }
-        }
+        };
+
         loadScreener();
-    }, [])
+
+        return () => {
+            controller.abort();
+        };
+    }, []);
 
     const handleTickerInfo = (ticker) => {
         const tickerObj = screeners.data.find(screener => screener.Ticker === ticker)
@@ -35,6 +50,8 @@ export default function ScreenerPage() {
 
     return (
         <>
+            <ScreenerHeader />
+
             {loading
                 ? <p>Cargando resultado de screener...</p>
                 : screeners.length > 0 && screeners.data.length > 0

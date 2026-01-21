@@ -1,36 +1,65 @@
-import js from '@eslint/js'
-import globals from 'globals'
-import reactHooks from 'eslint-plugin-react-hooks'
-import reactRefresh from 'eslint-plugin-react-refresh'
-import tseslint from 'typescript-eslint' // <--- NUEVO
-import { defineConfig, globalIgnores } from 'eslint/config'
+import globals from "globals";
+import standard from "eslint-config-standard";
+import tsParser from "@typescript-eslint/parser";
+import tsPlugin from "@typescript-eslint/eslint-plugin";
+import reactHooks from "eslint-plugin-react-hooks";
+import reactRefresh from "eslint-plugin-react-refresh";
 
-export default defineConfig([
-  globalIgnores(['dist']),
+// 🔴 Plugins que Standard usa internamente
+import importPlugin from "eslint-plugin-import";
+import nPlugin from "eslint-plugin-n";
+import promisePlugin from "eslint-plugin-promise";
+
+export default [
   {
-    // 1. Actualizamos para que incluya archivos TS y TSX
-    files: ['**/*.{js,jsx,ts,tsx}'],
-    extends: [
-      js.configs.recommended,
-      ...tseslint.configs.recommended, // <--- NUEVO: Reglas de TypeScript
-      reactHooks.configs.flat.recommended,
-      reactRefresh.configs.vite,
-    ],
+    ignores: ["dist"],
+  },
+  {
+    files: ["**/*.{js,jsx,ts,tsx}"],
     languageOptions: {
-      ecmaVersion: 2020,
+      parser: tsParser,
+      ecmaVersion: "latest",
+      sourceType: "module",
       globals: globals.browser,
-      // 2. Usamos el parser de TypeScript
-      parser: tseslint.parser,
       parserOptions: {
-        ecmaVersion: 'latest',
-        ecmaFeatures: { jsx: true },
-        sourceType: 'module',
+        ecmaFeatures: {
+          jsx: true,
+        },
       },
     },
+    plugins: {
+      // 👇 REGISTRAR TODOS LOS PLUGINS
+      "@typescript-eslint": tsPlugin,
+      "react-hooks": reactHooks,
+      "react-refresh": reactRefresh,
+      import: importPlugin,
+      n: nPlugin,
+      promise: promisePlugin,
+    },
     rules: {
-      // 3. Cambiamos la regla a la versión de TS para que no de falsos positivos
-      'no-unused-vars': 'off',
-      '@typescript-eslint/no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
+      // 🔹 Standard rules
+      ...standard.rules,
+
+      // 🔹 TypeScript
+      ...tsPlugin.configs.recommended.rules,
+
+      // 🔹 React
+      ...reactHooks.configs.recommended.rules,
+      ...reactRefresh.configs.vite.rules,
+
+      // 🔹 Estilo libre
+      "comma-dangle": "off",
+      quotes: "off",
+      semi: "off",
+      indent: "off",
+      "space-before-function-paren": "off",
+
+      // 🔹 Evitar duplicados JS vs TS
+      "no-unused-vars": "off",
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        { varsIgnorePattern: "^[A-Z_]" },
+      ],
     },
   },
-])
+];
