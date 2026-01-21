@@ -27,7 +27,7 @@ export function ScreenerTickerInfo({ ticker, onClose }) {
             <div
                 onClick={(e) => e.stopPropagation()}
                 className="
-                    w-full max-w-80
+                    w-full max-w-90
                     rounded-xl
                     bg-[#555]
                     p-8
