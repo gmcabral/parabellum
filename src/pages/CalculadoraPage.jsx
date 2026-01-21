@@ -27,40 +27,54 @@ export default function Calculadora() {
     };
     return (
         <>
-            <section>
-                <h1 className="text-3xl font-bold text-blue-500">Calculadora</h1>
+            <section className="flex flex-col items-center m-4 align-middle justify-center">
+                <h1 className="text-3xl font-bold text-gray-300 mb-4">Calculadora</h1>
 
-                <form onSubmit={handleSubmit}>
-                    <label htmlFor="capitalTotal">Capital total</label>
-                    <input
-                        id="capitalTotal"
-                        type="number"
-                        value={capitalTotal}
-                        onChange={(e) => setCapitalTotal(e.target.value)}
-                        required
-                    />
+                <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-4 md:grid-cols-3">
+                    <div className="flex flex-col gap-1">
+                        <label htmlFor="ticker" className="text-sm font-medium">TICKER</label>
+                        <input
+                            id="ticker"
+                            type="text"
+                            value={ticker}
+                            onChange={(e) => setTicker(e.target.value)}
+                            required
+                            className="rounded-md border px-3 py-2"
+                        />
+                    </div>
+                    <div className="flex flex-col gap-1">
+                        <label htmlFor="capitalTotal" className="text-sm font-medium">Capital total</label>
+                        <input
+                            id="capitalTotal"
+                            type="number"
+                            value={capitalTotal}
+                            onChange={(e) => setCapitalTotal(e.target.value)}
+                            required
+                            className="rounded-md border px-3 py-2"
+                        />
+                    </div>
+                    <div className="flex flex-col gap-1">
+                        <label htmlFor="pctRiesgo" className="text-sm font-medium">Porcentaje de Riesgo</label>
+                        <input
+                            id="pctRiesgo"
+                            type="number"
+                            value={pctRiesgo}
+                            onChange={(e) => setPctRiesgo(e.target.value)}
+                            required
+                            className="rounded-md border px-3 py-2"
+                        />
+                    </div>
 
-                    <label htmlFor="pctRiesgo">Pct Riesgo</label>
-                    <input
-                        id="pctRiesgo"
-                        type="number"
-                        value={pctRiesgo}
-                        onChange={(e) => setPctRiesgo(e.target.value)}
-                        required
-                    />
-
-                    <label htmlFor="ticker">TICKER</label>
-                    <input
-                        id="ticker"
-                        type="text"
-                        value={ticker}
-                        onChange={(e) => setTicker(e.target.value)}
-                        required
-                    />
-
-                    <button type="submit">Calcular</button>
+                    <div className="col-span-full flex justify-center">
+                        <button
+                            type="submit"
+                            className="mt-2 rounded-md bg-blue-900 px-6 py-2 text-white"
+                        >
+                            Calcular
+                        </button>
+                    </div>
                 </form>
-            </section>
+            </section >
             <aside>
                 <h1>Operacion en largo</h1>
                 <div>

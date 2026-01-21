@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react"
 import { getScreenerData } from "../services/ParabellumServices.js"
-
+import { ScreenerTicker } from "../components/ScreenerTicker.jsx"
+import { ScreenerTickerInfo } from "../components/ScreenerTicketInfo.jsx"
 
 export default function ScreenerPage() {
     const [loading, setLoading] = useState(true)
-    const [screener, setScreener] = useState([])
+    const [screeners, setScreener] = useState([])
 
     useEffect(() => {
         const loadScreener = async () => {
@@ -21,34 +22,42 @@ export default function ScreenerPage() {
         }
         loadScreener();
     }, [])
+
+    const handleTickerInfo = (e) => {
+        const ticker = e.target.innerText
+        const tickerObj = screeners.data.find(screener => screener.Ticker === ticker)
+        return <ScreenerTickerInfo ticker={tickerObj} />
+    }
+
     return (
         <>
-            <h1>Screener</h1>
             {loading
                 ? <p>Cargando resultado de screener...</p>
-                : <table>
-                    <thead>
-                        <tr>
-                            <th>Ticker</th>
-                            <th>Company</th>
-                            <th>Sector</th>
-                            <th>Industry</th>
-                            <th>Price</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {screener.data.map(screener =>
-                            <tr key={screener.Ticker}>
-                                <td>{screener.Ticker}</td>
-                                <td>{screener.Company}</td>
-                                <td>{screener.Sector}</td>
-                                <td>{screener.Industry}</td>
-                                <td>{screener.Price}</td>
+                : screeners.length > 0 && screeners.data.length > 0
+                    ? <p>Intentelo nuevamente, algo falló</p>
+                    : <table className="w-full mx-5 content-between">
+                        <thead>
+                            <tr className="border-b">
+                                <th >Ticker</th>
+                                <th>Company</th>
+                                <th>Sector</th>
+                                <th>Industry</th>
+                                <th>Price</th>
                             </tr>
-                        )}
+                        </thead>
+                        <tbody>
+                            {screeners.data.map(screener =>
+                                <tr key={screener.Ticker} >
+                                    <ScreenerTicker handleTickerInfo={handleTickerInfo} ticker={screener.Ticker} />
+                                    <td className="border-x border-x-gray-500 px-1">{screener.Company}</td>
+                                    <td className="border-x border-x-gray-500 px-1">{screener.Sector}</td>
+                                    <td className="border-x border-x-gray-500 px-1">{screener.Industry}</td>
+                                    <td className="border-x border-x-gray-500 px-1">{screener.Price}</td>
+                                </tr>
+                            )}
 
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
             }
         </>
 
