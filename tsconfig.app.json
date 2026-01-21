@@ -1,0 +1,31 @@
+{
+    "compilerOptions": {
+        "target": "ESNext",
+        "useDefineForClassFields": true,
+        "lib": [
+            "DOM",
+            "DOM.Iterable",
+            "ESNext"
+        ],
+        "module": "ESNext",
+        "skipLibCheck": true,
+        "moduleResolution": "bundler",
+        "allowImportingTsExtensions": true,
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "noEmit": true,
+        "jsx": "react-jsx",
+        "strict": false, // Empezamos relajados para migrar poco a poco
+        "allowJs": true, // <--- PERMITE ARCHIVOS .JS Y .TS JUNTOS
+        "paths": {
+            "@/*": [
+                "./src/*"
+            ]
+        }
+    },
+    "include": [
+        "src/**/*.ts",
+        "src/**/*.tsx",
+        "src/**/*.d.ts"
+    ]
+}

@@ -21,11 +21,7 @@ export async function calcularRiesgo(payload) {
 }
 
 export async function getScreenerData() {
-    const response = await fetch('https://api.amala.com.ar/screener/', {
-        headers: {
-            'Content-Type': 'application/json',
-        }
-    });
+    const response = await fetch('https://api.amala.com.ar/screener/');
 
     if (!response.ok) {
         throw new Error('Error al obtener los datos');
