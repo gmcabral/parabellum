@@ -6,6 +6,7 @@ import { ScreenerTickerInfo } from "../components/ScreenerTicketInfo.jsx"
 export default function ScreenerPage() {
     const [loading, setLoading] = useState(true)
     const [screeners, setScreener] = useState([])
+    const [selectedTicker, setSelectedTicker] = useState(null)
 
     useEffect(() => {
         const loadScreener = async () => {
@@ -23,10 +24,13 @@ export default function ScreenerPage() {
         loadScreener();
     }, [])
 
-    const handleTickerInfo = (e) => {
-        const ticker = e.target.innerText
+    const handleTickerInfo = (ticker) => {
         const tickerObj = screeners.data.find(screener => screener.Ticker === ticker)
-        return <ScreenerTickerInfo ticker={tickerObj} />
+        setSelectedTicker(tickerObj)
+    }
+
+    const closeModal = () => {
+        setSelectedTicker(null)
     }
 
     return (
@@ -55,13 +59,10 @@ export default function ScreenerPage() {
                                     <td className="border-x border-x-gray-500 px-1">{screener.Price}</td>
                                 </tr>
                             )}
-
                         </tbody>
                     </table>
             }
+            {selectedTicker && <ScreenerTickerInfo ticker={selectedTicker} onClose={closeModal} />}
         </>
-
-
-
     )
 }

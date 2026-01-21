@@ -1,11 +1,31 @@
-export function ScreenerTickerInfo({ ticker }) {
+import { useEffect } from "react"
+
+export function ScreenerTickerInfo({ ticker, onClose }) {
+
+    useEffect(() => {
+        const handleEsc = (event) => {
+            if (event.keyCode === 27) {
+                onClose();
+            }
+        };
+        window.addEventListener('keydown', handleEsc);
+
+        return () => {
+            window.removeEventListener('keydown', handleEsc);
+        };
+    }, [onClose]);
+
+
     return (
-        <section className="
+        <section
+            onClick={onClose}
+            className="
                 fixed inset-0 z-1000
                 flex items-center justify-center
                 bg-black/40
                 backdrop-blur-[6px]">
             <div
+                onClick={(e) => e.stopPropagation()}
                 className="
                     w-full max-w-80
                     rounded-xl
